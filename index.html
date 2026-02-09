@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Re-Circular Jalisco</title>
+  <meta name="description" content="Modelo de negocio inclusivo enfocado en economía circular, reducción de desperdicio de materiales e impacto social en Jalisco.">
+
+  <style>
+    :root{
+      --green-700:#0f5f3a;
+      --green-600:#1f7a52;
+      --mint-300:#bfe6cc;
+      --mint-200:#d7f1e1;
+      --bg:#f4fbf7;
+      --text:#123a2a;
+      --muted:#2b463b;
+      --card:#ffffff;
+      --border:#d8e7df;
+      --shadow: 0 8px 20px rgba(0,0,0,0.08);
+      --focus:#ffbf47;
+      --radius: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #fff);
+      color: var(--text);
+      line-height:1.6;
+    }
+
+    a{ color:var(--green-700); text-decoration:none; font-weight:700; }
+    a:hover{ text-decoration:underline; }
+
+    /* foco visible */
+    :focus-visible{
+      outline: 4px solid var(--focus);
+      outline-offset: 2px;
+      border-radius: 10px;
+    }
+
+    .contenedor{ max-width:1100px; margin:auto; padding:0 18px; }
+    section{ padding: 52px 0; }
+
+    /* Header */
+    header{
+      background: rgba(255,255,255,.95);
+      border-bottom: 3px solid var(--mint-300);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--text);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .brand-badge{
+      width:38px; height:38px; border-radius: 12px;
+      background: radial-gradient(circle at 30% 30%, var(--mint-200), var(--green-600));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      flex: 0 0 auto;
+    }
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:12px;
+      padding:0; margin:0;
+      flex-wrap: wrap;
+    }
+    nav li a{
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+    nav li a:hover{
+      background: var(--mint-200);
+      text-decoration:none;
+    }
+
+    /* Hero */
+    .hero{
+      background: linear-gradient(135deg, var(--mint-300), #e8f7ef);
+      text-align:center;
+      padding: 70px 0;
+    }
+    .hero h1{
+      font-size: clamp(30px, 4.3vw, 46px);
+      margin: 0 0 10px;
+      color: var(--green-700);
+      letter-spacing:-.4px;
+    }
+    .hero p{
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 18px;
+      color: var(--muted);
+    }
+    .boton{
+      display:inline-block;
+      margin-top: 20px;
+      background: var(--green-700);
+      color:#fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+    .boton:hover{
+      background: var(--green-600);
+      text-decoration:none;
+    }
+
+    /* Layout cards */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .tarjeta{
+      background: var(--card);
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    h2{ margin:0 0 10px; color: var(--green-700); }
+    h3{ margin:0 0 8px; color: var(--green-700); }
+    p{ margin: 0 0 10px; color: var(--muted); max-width: 950px; }
+
+    ul{ padding-left: 18px; color: var(--muted); }
+    li{ margin: 6px 0; }
+
+    /* Imagenes */
+    .img-wrap{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .img-card{
+      background: #fff;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .img-card svg{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius: 12px;
+    }
+    .caption{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* Formulario */
+    form{
+      max-width: 700px;
+      background: #fff;
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    label{
+      font-weight: 800;
+      display:block;
+      margin-top: 14px;
+      color: var(--text);
+    }
+    input, textarea, select{
+      width: 100%;
+      padding: 12px 12px;
+      margin-top: 6px;
+      border-radius: 12px;
+      border: 1px solid #cfdad4;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--text);
+    }
+    textarea{ resize: vertical; min-height: 120px; }
+    .hint{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .btn-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+    }
+    button{
+      background: var(--green-700);
+      color:#fff;
+      border:none;
+      padding: 12px 18px;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight: 800;
+    }
+    button:hover{ background: var(--green-600); }
+    .btn-secondary{
+      background: #fff;
+      color: var(--green-700);
+      border: 2px solid var(--border);
+    }
+    .btn-secondary:hover{
+      background: var(--mint-200);
+      color: var(--green-700);
+    }
+
+    footer{
+      background: var(--green-700);
+      color:#fff;
+      text-align:center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px){
+      .hero{ padding: 56px 0; }
+      nav{ justify-content:center; }
+    }
+
+    /* accesibilidad: texto solo para lectores */
+    .sr-only{
+      position:absolute; width:1px; height:1px;
+      padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="contenedor">
+    <nav aria-label="Navegación principal">
+      <div class="brand" aria-label="Marca Re-Circular Jalisco">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <span>Re-Circular Jalisco</span>
+      </div>
+
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#modelo">Modelo</a></li>
+        <li><a href="#grupo">Grupo Objetivo</a></li>
+        <li><a href="#impacto">Impacto</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="inicio" class="hero" aria-label="Sección de inicio">
+  <div class="contenedor">
+    <h1>Economía circular con impacto social</h1>
+    <p>
+      Re-Circular Jalisco transforma el desperdicio de materiales en oportunidades productivas,
+      generando empleo digno y reduciendo el impacto ambiental en el estado.
+    </p>
+    <a href="#modelo" class="boton">Conoce el proyecto</a>
+
+    <!-- Imagen 1: Portada -->
+    <div class="img-wrap">
+      <div class="img-card" role="img" aria-label="Ilustración de economía circular con flechas verdes, una fábrica y un símbolo de reciclaje">
+        <svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#bfe6cc"/>
+              <stop offset="1" stop-color="#e8f7ef"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="520" rx="28" fill="url(#g1)"/>
+          <!-- sun -->
+          <circle cx="1020" cy="110" r="46" fill="#d7f1e1" stroke="#0f5f3a" stroke-width="6"/>
+          <!-- factory -->
+          <rect x="140" y="250" width="340" height="190" rx="18" fill="#ffffff" stroke="#d8e7df" stroke-width="6"/>
+          <rect x="190" y="200" width="90" height="240" rx="16" fill="#ffffff" stroke="#d8e7df" stroke-width="6"/>
+          <rect x="295" y="230" width="110" height="210" rx="16" fill="#ffffff" stroke="#d8e7df" stroke-width="6"/>
+          <rect x="155" y="280" width="300" height="20" rx="10" fill="#bfe6cc"/>
+          <rect x="170" y="320" width="70" height="60" rx="10" fill="#d7f1e1"/>
+          <rect x="260" y="320" width="70" height="60" rx="10" fill="#d7f1e1"/>
+          <rect x="350" y="320" width="70" height="60" rx="10" fill="#d7f1e1"/>
+          <!-- recycle symbol -->
+          <circle cx="720" cy="310" r="120" fill="#ffffff" stroke="#d8e7df" stroke-width="6"/>
+          <path d="M720 214c52 0 96 38 105 88l-34-9 12 38 38-12-28-8c-12-66-70-117-141-117-45 0-86 20-114 51l24 26c21-24 52-39 86-39z"
+                fill="#0f5f3a" opacity="0.95"/>
+          <path d="M638 394c-32-20-52-55-52-94 0-14 3-28 8-41l-33 12 12-38 38 12-10 4c-7 16-11 33-11 51 0 30 12 58 32 78l-22 16z"
+                fill="#1f7a52" opacity="0.95"/>
+          <path d="M802 338c-12 38-46 66-87 70l23 27h-40l0-40 7 8c32-3 60-24 70-54l27-11z"
+                fill="#2e8b63" opacity="0.95"/>
+          <!-- title bar -->
+          <rect x="80" y="70" width="740" height="78" rx="18" fill="#ffffff" opacity="0.9"/>
+          <text x="110" y="120" font-size="36" font-family="Arial" fill="#0f5f3a" font-weight="800">
+            Re-Circular Jalisco: menos residuos, más oportunidades
+          </text>
+        </svg>
+        <div class="caption">Imagen: Economía circular aplicada al proyecto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modelo" aria-label="Sección modelo de negocio">
+  <div class="contenedor">
+    <h2>Modelo de negocio</h2>
+    <p>
+      Recuperamos, clasificamos y reutilizamos materiales (plástico, cartón, madera y textiles) generados por la industria y el comercio,
+      transformándolos en productos con valor, mientras integramos a personas en situación vulnerable mediante empleo formal y capacitación.
+    </p>
+
+    <div class="grid">
+      <div class="tarjeta">
+        <h3>Problema</h3>
+        <p>Materiales aprovechables terminan en rellenos sanitarios, incrementando contaminación y costos de disposición.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Solución</h3>
+        <p>Procesos de recuperación y transformación de residuos en productos reutilizables, con estándares de seguridad y calidad.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Enfoque social</h3>
+        <p>Inclusión laboral con capacitación técnica y desarrollo de habilidades para estabilidad económica y bienestar.</p>
+      </div>
+    </div>
+
+    <!-- Imagen 2: Proceso -->
+    <div class="img-wrap">
+      <div class="img-card" role="img" aria-label="Diagrama de flujo del proceso: recolectar, clasificar, transformar y vender, con flechas verdes">
+        <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="420" rx="28" fill="#ffffff"/>
+          <rect x="30" y="30" width="1140" height="360" rx="22" fill="#f4fbf7" stroke="#d8e7df" stroke-width="4"/>
+          <text x="70" y="95" font-size="34" font-family="Arial" fill="#0f5f3a" font-weight="800">Proceso del modelo</text>
+
+          <!-- boxes -->
+          <g font-family="Arial" font-weight="800" fill="#123a2a">
+            <rect x="80" y="150" width="240" height="140" rx="18" fill="#d7f1e1" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="105" y="230" font-size="22">Recolectar</text>
+
+            <rect x="360" y="150" width="240" height="140" rx="18" fill="#bfe6cc" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="390" y="230" font-size="22">Clasificar</text>
+
+            <rect x="640" y="150" width="240" height="140" rx="18" fill="#d7f1e1" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="660" y="230" font-size="22">Transformar</text>
+
+            <rect x="920" y="150" width="240" height="140" rx="18" fill="#bfe6cc" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="965" y="230" font-size="22">Vender</text>
+          </g>
+
+          <!-- arrows -->
+          <g fill="none" stroke="#0f5f3a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M320 220 H350" />
+            <path d="M600 220 H630" />
+            <path d="M880 220 H910" />
+          </g>
+          <g fill="#0f5f3a">
+            <polygon points="345,220 325,205 325,235"/>
+            <polygon points="625,220 605,205 605,235"/>
+            <polygon points="905,220 885,205 885,235"/>
+          </g>
+        </svg>
+        <div class="caption">Imagen: Flujo del proceso del modelo (de residuos a valor).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grupo" aria-label="Sección grupo objetivo">
+  <div class="contenedor">
+    <h2>Grupo objetivo</h2>
+
+    <div class="grid">
+      <div class="tarjeta">
+        <h3>Grupo social incluido</h3>
+        <ul>
+          <li>Mujeres jefas de familia</li>
+          <li>Jóvenes sin empleo formal</li>
+          <li>Personas en situación de vulnerabilidad económica</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Perfil</h3>
+        <ul>
+          <li>Nivel socioeconómico medio-bajo</li>
+          <li>Alta disposición al aprendizaje</li>
+          <li>Interés en estabilidad laboral y mejora de calidad de vida</li>
+        </ul>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Interacción</h3>
+        <ul>
+          <li>Capacitación técnica (clasificación y seguridad)</li>
+          <li>Empleo formal con horarios flexibles</li>
+          <li>Mejora continua y cultura ambiental</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Imagen 3: Personas aprendiendo -->
+    <div class="img-wrap">
+      <div class="img-card" role="img" aria-label="Ilustración de un taller con personas aprendiendo y un pizarrón, con tonos verdes y menta">
+        <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="420" rx="28" fill="#ffffff"/>
+          <rect x="40" y="40" width="1120" height="340" rx="22" fill="#f4fbf7" stroke="#d8e7df" stroke-width="4"/>
+          <!-- board -->
+          <rect x="110" y="100" width="520" height="220" rx="18" fill="#d7f1e1" stroke="#bfe6cc" stroke-width="5"/>
+          <text x="150" y="150" font-size="26" font-family="Arial" fill="#0f5f3a" font-weight="800">Capacitación</text>
+          <circle cx="175" cy="190" r="10" fill="#0f5f3a"/>
+          <rect x="195" y="182" width="360" height="16" rx="8" fill="#bfe6cc"/>
+          <circle cx="175" cy="230" r="10" fill="#0f5f3a"/>
+          <rect x="195" y="222" width="320" height="16" rx="8" fill="#bfe6cc"/>
+          <circle cx="175" cy="270" r="10" fill="#0f5f3a"/>
+          <rect x="195" y="262" width="280" height="16" rx="8" fill="#bfe6cc"/>
+
+          <!-- people -->
+          <g>
+            <circle cx="760" cy="180" r="36" fill="#bfe6cc" stroke="#0f5f3a" stroke-width="4"/>
+            <rect x="720" y="220" width="80" height="110" rx="22" fill="#d7f1e1" stroke="#0f5f3a" stroke-width="4"/>
+
+            <circle cx="900" cy="190" r="36" fill="#bfe6cc" stroke="#0f5f3a" stroke-width="4"/>
+            <rect x="860" y="230" width="80" height="100" rx="22" fill="#bfe6cc" stroke="#0f5f3a" stroke-width="4"/>
+
+            <circle cx="1040" cy="180" r="36" fill="#bfe6cc" stroke="#0f5f3a" stroke-width="4"/>
+            <rect x="1000" y="220" width="80" height="110" rx="22" fill="#d7f1e1" stroke="#0f5f3a" stroke-width="4"/>
+          </g>
+
+          <text x="700" y="95" font-size="28" font-family="Arial" fill="#0f5f3a" font-weight="800">
+            Personas con alta disposición
+          </text>
+        </svg>
+        <div class="caption">Imagen: Taller de aprendizaje y formación para empleo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impacto" aria-label="Sección impacto generado">
+  <div class="contenedor">
+    <h2>Impacto generado</h2>
+
+    <div class="grid">
+      <div class="tarjeta">
+        <h3>Impacto ambiental</h3>
+        <p>Menos residuos en rellenos sanitarios y mayor reutilización de materiales con valor.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Impacto social</h3>
+        <p>Empleo digno, capacitación y fortalecimiento de habilidades para mejorar calidad de vida.</p>
+      </div>
+
+      <div class="tarjeta">
+        <h3>Impacto económico</h3>
+        <p>Ingresos sostenibles a través de venta de productos reciclados y servicios ambientales.</p>
+      </div>
+    </div>
+
+    <!-- Imagen 4: Impacto -->
+    <div class="img-wrap">
+      <div class="img-card" role="img" aria-label="Infografía sencilla con tres columnas: ambiental, social y económico, en tonos verdes">
+        <svg viewBox="0 0 1200 420" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="420" rx="28" fill="#ffffff"/>
+          <text x="70" y="95" font-size="34" font-family="Arial" fill="#0f5f3a" font-weight="800">Impacto del proyecto</text>
+
+          <g font-family="Arial" font-weight="800" fill="#123a2a">
+            <rect x="70" y="130" width="340" height="240" rx="18" fill="#d7f1e1" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="105" y="180" font-size="24" fill="#0f5f3a">Ambiental</text>
+            <text x="105" y="220" font-size="18" font-weight="700">• Menos residuos</text>
+            <text x="105" y="250" font-size="18" font-weight="700">• Reutilización</text>
+            <text x="105" y="280" font-size="18" font-weight="700">• Menor huella</text>
+
+            <rect x="430" y="130" width="340" height="240" rx="18" fill="#bfe6cc" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="465" y="180" font-size="24" fill="#0f5f3a">Social</text>
+            <text x="465" y="220" font-size="18" font-weight="700">• Empleo digno</text>
+            <text x="465" y="250" font-size="18" font-weight="700">• Capacitación</text>
+            <text x="465" y="280" font-size="18" font-weight="700">• Bienestar</text>
+
+            <rect x="790" y="130" width="340" height="240" rx="18" fill="#d7f1e1" stroke="#bfe6cc" stroke-width="4"/>
+            <text x="825" y="180" font-size="24" fill="#0f5f3a">Económico</text>
+            <text x="825" y="220" font-size="18" font-weight="700">• Ingresos</text>
+            <text x="825" y="250" font-size="18" font-weight="700">• Alianzas</text>
+            <text x="825" y="280" font-size="18" font-weight="700">• Escalable</text>
+          </g>
+        </svg>
+        <div class="caption">Imagen: Resumen visual del impacto ambiental, social y económico.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" aria-label="Sección contacto">
+  <div class="contenedor">
+    <h2>Contacto</h2>
+    <p>
+      Si deseas colaborar, donar materiales o conocer más sobre el proyecto, envíanos un mensaje.
+    </p>
+
+    <form action="https://formsubmit.com/A940069841@my.uvm.edu.mx" method="POST" aria-label="Formulario de contacto">
+      <!-- Configuración FormSubmit -->
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde Re-Circular Jalisco">
+      <input type="hidden" name="_captcha" value="false">
+      <!-- Redirección a una página (opcional). Si no la tienes, borra esta línea -->
+      <!-- <input type="hidden" name="_next" value="https://tuusuario.github.io/recircular-jalisco/gracias.html"> -->
+
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+
+      <label for="motivo">Motivo de contacto</label>
+      <select id="motivo" name="motivo" required>
+        <option value="">Selecciona una opción</option>
+        <option value="Alianza">Alianza / colaboración</option>
+        <option value="Donación">Donación de materiales</option>
+        <option value="Empleo">Interés en empleo/capacitación</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje" required></textarea>
+
+      <div class="btn-row">
+        <button type="submit">Enviar</button>
+        <button type="reset" class="btn-secondary">Limpiar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>Re-Circular Jalisco © 2026 | Economía circular e inclusión social</p>
+</footer>
+
+</body>
+</html>
